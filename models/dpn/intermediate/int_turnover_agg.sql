@@ -18,12 +18,13 @@ select
     sum(tds_top_workshop*f_to_tax_in) as to_workshop,
     sum(tds_top_location*f_to_tax_in) as to_rental
 from {{ref ('stg_turnover')}} as src
-left join {{ref('stg_sustainable')}} as sus using(the_transaction_id, tdt_num_line)
+inner join {{ref('stg_sku')}} as sku using(sku_idr_sku)
+left join {{ref('stg_sustainable')}} as sus using(the_transaction_id, tdt_num_line, the_to_type)
 left join {{ref('stg_but')}} as but
     on but.but_idr_business_unit=src.but_idr_business_unit
     and but.but_num_typ_but =7
 left join {{ref('int_plants')}} as pl
-    on but.but_idr_business_unit=pl.but_idr_business_unit
+    on but.but_num_business_unit=pl.but_num_business_unit
     and pl.but_num_typ_but =7
     and pl.distrib_channel='02'
 where 1=1

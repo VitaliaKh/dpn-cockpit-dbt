@@ -39,21 +39,6 @@ jobs:
         make login-ecr-ppd
         make publish-ecr-ppd
 
-    - name: Configure PROD AWS credentials
-      uses: aws-actions/configure-aws-credentials@master
-      with:
-        role-to-assume: arn:aws:iam::585305677161:role/BIGDATA-GITHUBACTIONS-DPN
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Push main Python script to prod S3 bucket
-      run: |
-        make upload-python-script-to-s3-on-prd
-
-    - name: Publish docker image to prod ECR
-      run: |
-        make login-ecr-prd
-        make publish-ecr-prd
-
     - name: Clean workspace #Because Decathlon runners are not volatile (for now), we must clean up after ourselves
       uses: docker://centos
       if: always()

@@ -17,13 +17,6 @@ git-setup:
 import-packages:
 	dbt deps
 
-run:
-	dbt run --profiles-dir $(THIS_DIR) --exclude example.*
-
-run-example:
-	dbt seed --profiles-dir $(THIS_DIR) --select example.*
-	dbt run --profiles-dir $(THIS_DIR) --select example.*
-
 run-tests:
 	echo 'Faking tests...'
 
