@@ -1,0 +1,25 @@
+dpn_cockpit_dbt:
+
+  target:  "{{ env_var('DBT_TARGET') }}" 
+  outputs:
+    exploration-dev:
+      type: databricks
+      schema: dev_bibyviz
+      host: "decathlon-dataplatform-exploration.cloud.databricks.com"
+      http_path: "/sql/1.0/endpoints/fa3ca2a4d3969a7c"
+      token:  "{{ env_var('DBT_ACCESS_TOKEN') }}"  # NEVER write token directly in this file !
+
+    exploration-preprod:
+      type: databricks
+      schema: dev_bibyviz
+      host: "decathlon-dataplatform-exploration.cloud.databricks.com"
+      http_path: "/sql/1.0/endpoints/99247b6f54f42707"
+      token:  "{{ env_var('DBT_ACCESS_TOKEN') }}"  # NEVER write token directly in this file !
+
+    industrialization:
+      type: databricks
+      schema: dev_bibyviz
+      host: "decathlon-dataplatform-indus.cloud.databricks.com"
+      http_path: "/sql/1.0/endpoints/1ce77d40a5b83449"
+      token:  "{{ env_var('DBT_ACCESS_TOKEN') }}"   # NEVER write token directly in this file !
+

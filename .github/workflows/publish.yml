@@ -1,0 +1,62 @@
+name: Publication pipeline - Package and publish the DBT project
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Build container & upload to ECR
+    runs-on: decathlon
+    env:
+      AWS_REGION: eu-west-1
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build docker image
+      run: |
+        make build-docker-image
+
+    - name: Configure preprod AWS credentials
+      uses: aws-actions/configure-aws-credentials@master
+      with:
+        role-to-assume: arn:aws:iam::614303399241:role/BIGDATA-GITHUBACTIONS-DBT-TRAINING
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Push main Python script to preprod S3 bucket
+      run: |
+        make upload-python-script-to-s3-on-ppd
+
+    - name: Publish docker image to preprod ECR
+      run: |
+        make login-ecr-ppd
+        make publish-ecr-ppd
+
+    - name: Configure PROD AWS credentials
+      uses: aws-actions/configure-aws-credentials@master
+      with:
+        role-to-assume: arn:aws:iam::585305677161:role/BIGDATA-GITHUBACTIONS-DPN
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Push main Python script to prod S3 bucket
+      run: |
+        make upload-python-script-to-s3-on-prd
+
+    - name: Publish docker image to prod ECR
+      run: |
+        make login-ecr-prd
+        make publish-ecr-prd
+
+    - name: Clean workspace #Because Decathlon runners are not volatile (for now), we must clean up after ourselves
+      uses: docker://centos
+      if: always()
+      continue-on-error: true
+      with:
+        args: "/bin/rm /github/workspace -rf"

@@ -1,0 +1,35 @@
+name: Test pipeline - Run test suites
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: decathlon
+    env:
+      AWS_REGION: eu-west-1
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Run tests
+      run: |
+        make run-tests
+
+    - name: Clean workspace #Because Decathlon runners are not volatile (for now), we must clean up after ourselves
+      uses: docker://centos
+      if: always()
+      continue-on-error: true
+      with:
+        args: "/bin/rm /github/workspace -rf"

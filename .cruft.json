@@ -1,0 +1,28 @@
+{
+  "template": "git+ssh://git@github.com/dktunited/dps-dbt-template",
+  "commit": "a05ddc4fbdbc56484d889025e8cd3ab594cca9be",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "team_name": "dpn",
+      "project_long_name": "cockpit",
+      "project_name_dashes": "dpn-cockpit-dbt",
+      "project_name_underscores": "dpn_cockpit_dbt",
+      "project_short_description": "Python and SQL boilerplate contains all the boilerplate you need to create a DBT project",
+      "version": "1.0.0-SNAPSHOT",
+      "github_actions_aws_role_preprod_account": "arn:aws:iam::614303399241:role/BIGDATA-GITHUBACTIONS-DBT-TRAINING",
+      "github_actions_aws_role_prod_account": "arn:aws:iam::585305677161:role/BIGDATA-GITHUBACTIONS-DPN",
+      "databricks_sql_warehouse_explo_dev": "/sql/1.0/endpoints/fa3ca2a4d3969a7c",
+      "databricks_sql_warehouse_explo_preprod": "/sql/1.0/endpoints/99247b6f54f42707",
+      "databricks_sql_warehouse_indus": "/sql/1.0/endpoints/1ce77d40a5b83449",
+      "databricks_default_glue_database_dev": "dev_bibyviz",
+      "databricks_default_glue_database_preprod": "dev_bibyviz",
+      "databricks_default_glue_database_prod": "dev_bibyviz",
+      "wksp_dev_s3_bucket": "dev-dct-wksp-dps-dbt-training/z13vkhok",
+      "wksp_preprod_s3_bucket": "ppd-dct-wksp-dps-dbt-training/z13vkhok",
+      "wksp_prod_s3_bucket": "prd-dct-wksp-dpn",
+      "_template": "git+ssh://git@github.com/dktunited/dps-dbt-template"
+    }
+  },
+  "directory": null
+}

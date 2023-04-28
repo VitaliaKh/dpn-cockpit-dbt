@@ -1,0 +1,51 @@
+
+version: 2
+
+models:
+  - name: stg_age
+    description: "A staging model based on the age source. We use the staging model to ensure an homogenous naming column convention in the dbt project. 
+    Moreover, if one of the source column is renamed, we need to re-factorize the code only in the staging model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: age
+        description: "Age of a person"
+
+  - name: stg_name
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of a person"
+
+  - name: int_transformation
+    description: "Intermediate transformation. This transformation is not the final one and therefore not considered as a mart"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of a person initcaped (e.g. simon -> Simon)"
+
+  - name: dim_transformation
+    description: "Mart transformation. This transformation is the final one and therefore considered as mart. It is generally stored in the Datalake 
+    compared to the intermediate and staging models that are stored in the private team bucket"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of a person "
+      - name: name
+        description: "Age of a person"
