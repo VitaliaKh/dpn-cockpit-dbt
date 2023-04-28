@@ -11,7 +11,7 @@ git-setup:
 	git add .
 	git commit -m "core: initial commit, instantiate project from template"
 	git branch -M main
-	git remote add origin git@github.com:dktunited/dpn-cockpit-dbt.git
+	git remote add origin git@github.com:VitaliaKh/dpn-cockpit-dbt.git
 	git push -u origin main
 
 import-packages:
