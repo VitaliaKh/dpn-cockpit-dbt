@@ -1,4 +1,3 @@
-
 version: 2
 
 sources:
@@ -6,22 +5,22 @@ sources:
     schema:  "{{ var('cds_schema') | trim }}"
     tables:
       - name: d_business_unit
-      - name: d_sku_h
-      - name: d_hierarchy_supply
+      - name: d_third_link
       - name: d_currency
       - name: mtf_exchange_rate
       - name: sites_attribut_0plant_branches
       - name: sales_organizations_texts
       - name: supply_plant
+      - name: d_sku_h
+      - name: d_hierarchy_supply
       - name: d_general_data_store
       - name: d_sales_data_material
-      - name: turnover_online
-        identifier: f_delivery_detail
-      - name: turnover_offline
-        identifier: f_transaction_detail
+      - name: f_delivery_detail
+      - name: f_transaction_detail
       - name: f_transaction_sustainable
       - name: new_a_product_impact
       - name: f_stock_pictures_value
+      - name: d_day
   - name: ods
     schema: "{{ var('ods_schema') | trim }}"
     tables:
@@ -34,3 +33,6 @@ sources:
       - name: product_model
       - name: product_conception
       - name: product_type
+
+models:
+  - name: int_model

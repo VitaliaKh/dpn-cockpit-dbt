@@ -7,8 +7,8 @@ select
     end as brd_type_brand_libelle,
     mdl_num_model_r3,
     sku_num_sku_r3 as item_code_r3,
-    mdl_label,
-    pnt_num_product_nature::bigint as pnt_num_product_nature,
+    coalesce(mdl_num_model_r3 || ' ' || mdl_label, mdl_num_model_r3::varchar(10), 'Unassigned') as mdl_label,
+    pnt_num_product_nature::bigint as product_nature_id,
     case when brd_type_brand_libelle = 'AMI' then null
          when ( mdl_label like '%1_0 %' or mdl_label like '%1_0' ) and brd_type_brand_libelle = 'MP' then 100
          when ( mdl_label like '%3_0 %' or mdl_label like '%3_0' ) and brd_type_brand_libelle = 'MP'then 500
